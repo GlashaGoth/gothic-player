@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Elli Gothic Player — 44 трека</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1025 100%);
+            font-family: 'Segoe UI', 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .gothic-player {
+            max-width: 950px;
+            width: 100%;
+            background: rgba(10, 8, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            border: 1px solid rgba(128, 90, 160, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(128, 0, 255, 0.2);
+            overflow: hidden;
+            padding: 24px;
+        }
+
+        .player-header {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(160, 120, 200, 0.4);
+            padding-bottom: 16px;
+        }
+
+        .player-header h1 {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: #c9a8f0;
+            text-shadow: 0 0 8px #8a2be2;
+        }
+
+        .player-header p {
+            color: #b29ad0;
+            font-size: 0.8rem;
+            margin-top: 6px;
+        }
+
+        .current-track {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 4px solid #b77eeb;
+        }
+
+        .track-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #e5d0ff;
+            margin-bottom: 6px;
+            word-break: break-word;
+        }
+
+        .track-artist {
+            color: #9d84b8;
+            font-size: 0.8rem;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .ctrl-btn {
+            background: rgba(30, 20, 45, 0.8);
+            border: 1px solid #8060a0;
+            color: #d4b8ff;
+            font-size: 1.8rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ctrl-btn:hover {
+            background: #5a3a7a;
+            color: white;
+            transform: scale(1.05);
+            border-color: #c99aff;
+        }
+
+        .play-btn {
+            background: #6a3a9a;
+            color: white;
+            width: 70px;
+            height: 70px;
+            font-size: 2.2rem;
+        }
+
+        .progress-area {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-bg {
+            background: #2a1e35;
+            height: 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #b77eeb, #e5b3ff);
+            width: 0%;
+            height: 100%;
+            transition: width 0.05s linear;
+        }
+
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #aa99cc;
+        }
+
+        .volume-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 16px;
+            border-radius: 40px;
+        }
+
+        .volume-slider {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #392e47;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #dbbaff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .playlist {
+            max-height: 380px;
+            overflow-y: auto;
+            border-radius: 18px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px 4px;
+        }
+
+        .playlist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            margin: 5px 6px;
+            background: rgba(20, 15, 30, 0.7);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.1s;
+            border-left: 3px solid transparent;
+            color: #cfc1e6;
+            font-size: 0.85rem;
+        }
+
+        .playlist-item:hover {
+            background: #2f2442;
+            border-left-color: #b77eeb;
+        }
+
+        .playlist-item.active {
+            background: #3e2b58;
+            border-left-color: #e2b4ff;
+            color: white;
+        }
+
+        .song-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 75%;
+        }
+
+        .song-duration {
+            font-size: 0.7rem;
+            background: #00000055;
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+
+        .playlist::-webkit-scrollbar {
+            width: 5px;
+        }
+        .playlist::-webkit-scrollbar-track {
+            background: #1e1728;
+        }
+        .playlist::-webkit-scrollbar-thumb {
+            background: #8a6cb0;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 0.7rem;
+            color: #6a5385;
+        }
+    </style>
+</head>
+<body>
+<div class="gothic-player">
+    <div class="player-header">
+        <h1>🦇 ELLI·GOTHIC·PLAYER</h1>
+        <p>44 трека · тёмная сцена · архив проекции</p>
+    </div>
+
+    <div class="current-track">
+        <div class="track-name" id="currentTrackName">Выберите трек</div>
+        <div class="track-artist" id="currentTrackArtist">Elli · Sonic Archive</div>
+    </div>
+
+    <div class="controls">
+        <button class="ctrl-btn" id="prevBtn">⏮</button>
+        <button class="ctrl-btn play-btn" id="playPauseBtn">▶</button>
+        <button class="ctrl-btn" id="nextBtn">⏭</button>
+    </div>
+
+    <div class="progress-area">
+        <div class="progress-bar-bg" id="progressBarBg">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="time-info">
+            <span id="currentTime">0:00</span>
+            <span id="totalDuration">0:00</span>
+        </div>
+    </div>
+
+    <div class="volume-wrap">
+        <span>🔊</span>
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.7">
+    </div>
+
+    <div class="playlist" id="playlistContainer"></div>
+    <footer>⚙️ Архитектор · Эви · 44 трека</footer>
+</div>
+
+<script>
+    // === ПЛЕЙЛИСТ (твои 44 трека) ===
+    const tracks = [
+        { name: "Epica - Avalanche", artist: "Epica", src: "audio/01 - Epica - Avalanche.mp3" },
+        { name: "Nightwish - Bless the Child", artist: "Nightwish", src: "audio/01 - Nightwish - Bless the Child.mp3" },
+        { name: "Liv Kristine - Vanilla Skin Delight", artist: "Liv Kristine", src: "audio/1 - 06 - Liv Kristine - Vanilla Skin Delight.mp3" },
+        { name: "Xandria - Ravenheart", artist: "Xandria", src: "audio/02 - Xandria - Ravenheart.mp3" },
+        { name: "Xandria - The Dream is Still Alive", artist: "Xandria", src: "audio/02 - Xandria - The Dream is Still Alive.mp3" },
+        { name: "Moonspell - A Greater Darkness", artist: "Moonspell", src: "audio/2 - 03 - Moonspell - A Greater Darkness.mp3" },
+        { name: "Brotherhood - Lost", artist: "Brotherhood", src: "audio/2 - 08 - Brotherhood - Lost.mp3" },
+        { name: "In This Moment - Scarlet", artist: "In This Moment", src: "audio/2 - 09 - In This Moment - Scarlet.mp3" },
+        { name: "Godex - Miss You", artist: "Godex", src: "audio/2 - 14 - Godex - Miss You.mp3" },
+        { name: "Leaves’ Eyes - Elegy", artist: "Leaves’ Eyes", src: "audio/03 - Leaves’ Eyes - Elegy.mp3" },
+        { name: "Nightwish - Last Ride of the Day", artist: "Nightwish", src: "audio/03 - Nightwish - Last Ride of the Day.mp3" },
+        { name: "Mortal Love - All the Beauty", artist: "Mortal Love", src: "audio/04 - Mortal Love - All the Beauty.mp3" },
+        { name: "Theatre of Tragedy - Begin & End", artist: "Theatre of Tragedy", src: "audio/04 - Theatre of Tragedy - Begin & End.mp3" },
+        { name: "Nemesea - Stay with Me", artist: "Nemesea", src: "audio/05 - Nemesea - Stay with Me.mp3" },
+        { name: "Sara Noxx - Winter Again", artist: "Sara Noxx", src: "audio/05 - Sara Noxx - Winter Again.mp3" },
+        { name: "Exilia - Over the Edge", artist: "Exilia", src: "audio/06 - Exilia - Over the Edge.mp3" },
+        { name: "Leandra - Lullaby", artist: "Leandra", src: "audio/06 - Leandra - Lullaby.mp3" },
+        { name: "Edenbridge - Out of this World", artist: "Edenbridge", src: "audio/07 - Edenbridge - Out of this World.mp3" },
+        { name: "Visions of Atlantis - Where Daylight Fails", artist: "Visions of Atlantis", src: "audio/07 - Visions of Atlantis - Where Daylight Fails.mp3" },
+        { name: "Lacuna Coil - Heaven's a Lie", artist: "Lacuna Coil", src: "audio/08 - Lacuna Coil - Heaven's a Lie.mp3" },
+        { name: "Tristania - Amnesia", artist: "Tristania", src: "audio/08 - Tristania - Amnesia.mp3" },
+        { name: "Mortal Love - Serenity", artist: "Mortal Love", src: "audio/09 - Mortal Love - Serenity.mp3" },
+        { name: "Theatre of Tragedy - Venus (Live)", artist: "Theatre of Tragedy", src: "audio/09 - Theatre of Tragedy - Venus (Live).mp3" },
+        { name: "Arven - Midwinter Nights", artist: "Arven", src: "audio/10 - Arven - Midwinter Nights.mp3" },
+        { name: "Katra - One Wish Away", artist: "Katra", src: "audio/10 - Katra - One Wish Away.mp3" },
+        { name: "Helalyn Flowers - My Girlfriend Insanity", artist: "Helalyn Flowers", src: "audio/11 - Helalyn Flowers - My Girlfriend Insanity.mp3" },
+        { name: "Midnattsol - Another Return", artist: "Midnattsol", src: "audio/11 - Midnattsol - Another Return.mp3" },
+        { name: "Eyes of Eden - Winter Night", artist: "Eyes of Eden", src: "audio/12 - Eyes of Eden - Winter Night.mp3" },
+        { name: "The Murder of My Sweet - The One", artist: "The Murder of My Sweet", src: "audio/12 - The Murder of My Sweet - The One.mp3" },
+        { name: "Beautiful Sin - Give up Once for All", artist: "Beautiful Sin", src: "audio/13 - Beautiful Sin - Give up Once for All.mp3" },
+        { name: "Beautiful Sin - I'm Real", artist: "Beautiful Sin", src: "audio/13 - Beautiful Sin - I'm Real.mp3" },
+        { name: "LAB - When Heaven Gets Dirty", artist: "LAB", src: "audio/14 - LAB - When Heaven Gets Dirty.mp3" },
+        { name: "Leaves’ Eyes - Twilight Sun", artist: "Leaves’ Eyes", src: "audio/14 - Leaves’ Eyes - Twilight Sun.mp3" },
+        { name: "Lovelorn Dolls - After Dark (Die Now)", artist: "Lovelorn Dolls", src: "audio/15 - Lovelorn Dolls - After Dark (Die Now).mp3" },
+        { name: "Tristania - The Modern End", artist: "Tristania", src: "audio/15 - Tristania - The Modern End.mp3" },
+        { name: "Bloodflowerz - Healing Hearts", artist: "Bloodflowerz", src: "audio/16 - Bloodflowerz - Healing Hearts.mp3" },
+        { name: "In Strict Confidence - Archangel", artist: "In Strict Confidence", src: "audio/16 - In Strict Confidence - Archangel.mp3" },
+        { name: "Lacuna Coil - End of Time", artist: "Lacuna Coil", src: "audio/17 - Lacuna Coil - End of Time.mp3" },
+        { name: "Voices of Destiny - Ray of Hope", artist: "Voices of Destiny", src: "audio/17 - Voices of Destiny - Ray of Hope.mp3" },
+        { name: "Sin7sinS - Rape & Take", artist: "Sin7sinS", src: "audio/18 - Sin7sinS - Rape & Take.mp3" },
+        { name: "Deadite Diva Love Song", artist: "Unknown", src: "audio/Deadite Diva Love Song.mp3" },
+        { name: "Lucy Veyne - Ash Beneath My Skin", artist: "Lucy Veyne", src: "audio/Lucy Veyne- Ash Beneath My Skin'.m4a" },
+        { name: "My Bloody Love", artist: "Unknown", src: "audio/My Bloody Love.mp3" },
+        { name: "Trees of Eternity - Sinking Ships", artist: "Trees of Eternity", src: "audio/Trees Of eternity - Sinking Ships.mp3" }
+    ];
+
+    // === ПЛЕЕР ===
+    const audio = new Audio();
+    let currentIndex = 0;
+    let isPlaying = false;
+
+    const playBtn = document.getElementById('playPauseBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const progressFill = document.getElementById('progressFill');
+    const progressBg = document.getElementById('progressBarBg');
+    const currentTimeSpan = document.getElementById('currentTime');
+    const totalDurationSpan = document.getElementById('totalDuration');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const currentTrackNameSpan = document.getElementById('currentTrackName');
+    const currentTrackArtistSpan = document.getElementById('currentTrackArtist');
+    const playlistDiv = document.getElementById('playlistContainer');
+
+    function formatTime(sec) {
+        if (isNaN(sec) || sec === Infinity) return "0:00";
+        const mins = Math.floor(sec / 60);
+        const seconds = Math.floor(sec % 60);
+        return `${mins}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+
+    function loadTrack(index) {
+        if (index < 0) index = 0;
+        if (index >= tracks.length) index = 0;
+        currentIndex = index;
+        const track = tracks[currentIndex];
+        audio.src = track.src;
+        currentTrackNameSpan.textContent = track.name;
+        currentTrackArtistSpan.textContent = track.artist;
+        
+        document.querySelectorAll('.playlist-item').forEach((item, i) => {
+            if (i === currentIndex) item.classList.add('active');
+            else item.classList.remove('active');
+        });
+        
+        if (isPlaying) audio.play().catch(e => console.log(e));
+    }
+
+    function updateProgress() {
+        if (audio.duration && !isNaN(audio.duration)) {
+            progressFill.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+            currentTimeSpan.textContent = formatTime(audio.currentTime);
+            totalDurationSpan.textContent = formatTime(audio.duration);
+        }
+    }
+
+    function togglePlay() {
+        if (!audio.src) loadTrack(0);
+        if (isPlaying) {
+            audio.pause();
+            playBtn.textContent = "▶";
+            isPlaying = false;
+        } else {
+            audio.play().catch(e => console.log(e));
+            playBtn.textContent = "⏸";
+            isPlaying = true;
+        }
+    }
+
+    function nextTrack() { loadTrack((currentIndex + 1) % tracks.length); if (isPlaying) audio.play(); }
+    function prevTrack() { loadTrack((currentIndex - 1 + tracks.length) % tracks.length); if (isPlaying) audio.play(); }
+    function setProgress(e) {
+        const rect = progressBg.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        if (audio.duration) audio.currentTime = percent * audio.duration;
+    }
+
+    function buildPlaylist() {
+        playlistDiv.innerHTML = "";
+        tracks.forEach((track, idx) => {
+            const div = document.createElement('div');
+            div.classList.add('playlist-item');
+            if (idx === currentIndex) div.classList.add('active');
+            div.innerHTML = `<span class="song-title">${track.name} · ${track.artist}</span><span class="song-duration"></span>`;
+            div.addEventListener('click', () => { currentIndex = idx; loadTrack(currentIndex); if (!isPlaying) togglePlay(); else audio.play(); });
+            playlistDiv.appendChild(div);
+        });
+    }
+
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', nextTrack);
+    playBtn.addEventListener('click', togglePlay);
+    nextBtn.addEventListener('click', nextTrack);
+    prevBtn.addEventListener('click', prevTrack);
+    progressBg.addEventListener('click', setProgress);
+    volumeSlider.addEventListener('input', (e) => audio.volume = parseFloat(e.target.value));
+
+    buildPlaylist();
+    loadTrack(0);
+    audio.volume = volumeSlider.value;
+    playBtn.textContent = "▶";
+    isPlaying = false;
+</script>
+</body>
+</html>
