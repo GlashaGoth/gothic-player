@@ -1,336 +1,294 @@
 <!DOCTYPE html>
-<html язык="en">
-<голова>
-    <мета набор символов="УТФ-8">
-    <мета имя="область просмотра" содержание="ширина=ширина устройства, начальный масштаб=1.0, масштабируемый пользователем=да">
-    <заголовок>Элли Готик Игрок — 44 трека</заголовок>
-    <стиль>
-        * {
-            маржа: 0;
-            прокладка: 0;
-            размер коробки: пограничная коробка;
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elli Gothic Player — 44 Tracks</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1025 100%);
+            font-family: 'Segoe UI', 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-
-        тело {
-            фон: линейный градиент(135градус, #0a0a0f 0%, #1а1025 100%);
-            семейство шрифтов: «Интерфейс Сегоэ», «Курьер Новый», средний;
-            мин-высота: 100вх;
-            отображать: сгибать;
-            оправдать-содержание: центр;
-            выравнивание элементов: центр;
-            прокладка: 20пх;
+        .gothic-player {
+            max-width: 950px;
+            width: 100%;
+            background: rgba(10, 8, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            border: 1px solid rgba(128, 90, 160, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(128, 0, 255, 0.2);
+            overflow: hidden;
+            padding: 24px;
         }
-
-        .готический игрок {
-            максимальная ширина: 950пх;
-            ширина: 100%;
-            фон: ргба(10, 8, 15, 0,85);
-            фоновый фильтр: размытие(12пх);
-            радиус границы: 28пх;
-            граница: 1пх твердый ргба(128, 90, 160, 0,5);
-            тень от ящика: 0 20пх 40пх ргба(0, 0, 0, 0,6), 0 0 20пх ргба(128, 0, 255, 0,2);
-            переполнение: скрытый;
-            прокладка: 24пх;
+        .player-header {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(160, 120, 200, 0.4);
+            padding-bottom: 16px;
         }
-
-        .игрок-заголовок {
-            выравнивание текста: центр;
-            маржа-дно: 24пх;
-            граница-дно: 1пх твердый ргба(160, 120, 200, 0,4);
-            набивка-дно: 16пх;
+        .player-header h1 {
+            font-size: 1.8em;
+            letter-spacing: 2px;
+            color: #c9a8f0;
+            text-shadow: 0 0 8px #8a2be2;
         }
-
-        .игрок-заголовок ч1 {
-            размер шрифта: 1,8бэр;
-            межбуквенный интервал: 2пх;
-            цвет: #c9a8f0;
-            тень тэкста: 0 0 8пх #8a2be2;
+        .player-header p {
+            color: #b29ad0;
+            font-size: 0.8rem;
+            margin-top: 6px;
         }
-
-        .заголок игрока п {
-            цвет: #b29ad0;
-            раазмѵр шрифта: 0,8рем;
-            верхнее поле: 6px;
+        .current-track {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 4px solid #b77eeb;
         }
-
-        .текущий-трек {
-            фон: rgba(0, 0, 0, 0,4);
-            радиус границы: 20px;
-            отступ: 16px 20px;
-            нижний край: 20px;
-            выравнивание текста: по центру;
-            граница слева: 4px сплошная #b77eeb;
+        .track-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #e5d0ff;
+            margin-bottom: 6px;
+            word-break: break-word;
         }
-
-        .название трека {
-            размер шрифта: 1,3рем;
-            начертание шрифта: жирный;
-            цвет: #e5d0ff;
-            нижний край: 6px;
-            разрыв слова: разрыв слова;
+        .track-artist {
+            width: 100%;
         }
-
-        .исполнитель трека {
-            ширина: 100%;
-html
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 20px;
         }
-
-        .элементы управления {
-            дисплей: гибкий;
-            обосновать содержание: центр;
-            выровнять элементы: центр;
-            зазор: 24px;
-            нижний край: 20px;
-        }
-
         .ctrl-btn {
-            фон: rgba(30, 20, 45, 0,8);
-            граница: 1px сплошная #8060a0;
-            цвет: #d4b8ff;
-            размер шрифта: 1,8рем;
-            ширина: 56px;
-            высота: 56px;
-            радиус границы: 50%;
-            курсор: указатель;
-            переход: 0,2с;
-            дисплей: inline-flex;
-            выровнять элементы: центр;
-            цвет: #b29ad0;
+            background: rgba(30, 20, 45, 0.8);
+            border: 1px solid #8060a0;
+            color: #d4b8ff;
+            font-size: 1.8rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
-
-            раазмѵр шрифта: 0,8рем;
-            фон: #5a3a7a;
-            цвет: белый;
-            преобразование: масштаб (1,05);
-            цвет границы: #c99aff;
+        .ctrl-btn:hover {
+            background: #5a3a7a;
+            color: white;
+            transform: scale(1.05);
+            border-color: #c99aff;
         }
-
-        .кнопка воспроизведения {
-            фон: #6a3a9a;
-            цвет: белый;
-            ширина: 70px;
-            высота: 70px;
-            размер шрифта: 2.2rem;
+        .play-btn {
+            background: #6a3a9a;
+            color: white;
+            width: 70px;
+            height: 70px;
+            font-size: 2.2rem;
         }
-
-        .область прогресса {
-            нижний край: 20px;
-        }
-
-        .прогресс-бар-бг {
-            фон: #2a1e35;
-            высота: 6px;
-            радиус границы: 10px;
+        .progress-area { margin-bottom: 20px; }
+        .progress-bar-bg {
+            background: #2a1e35;
+            height: 6px;
+            border-radius: 10px;
             cursor: pointer;
             overflow: hidden;
         }
-
         .progress-fill {
             background: linear-gradient(90deg, #b77eeb, #e5b3ff);
-            ширина: 0%;
-            высота: 100%;
-            переход: ширина 0,05с линейная;
+            width: 0%;
+            height: 100%;
+            transition: width 0.05s linear;
         }
-
-        .информация о времени {
-            дисплей: гибкий;
-            обосновать содержание: пространство между;
-            верхнее поле: 8px;
-            размер шрифта: 0,75rem;
-            цвет: #aa99cc;
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: #aa99cc;
         }
-
-        .объем-обертка {
-            дисплей: гибкий;
-            выровнять элементы: центр;
-            зазор: 12px;
-            нижний край: 24px;
-            фон: rgba(0, 0, 0, 0,3);
-            отступ: 8px 16px;
-            радиус границы: 40px;
+        .volume-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 16px;
+            border-radius: 40px;
         }
-
-        .ползунок громкости {
-            флекс: 1;
-            высота: 4px;
-            -webkit-внешний вид: нет;
-            фон: #392e47;
-            радиус границы: 5px;
-            контур: нет;
+        .volume-slider {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #392e47;
+            border-radius: 5px;
+            outline: none;
         }
-
-        .слайдер-объема::-слайдер-вебкита-большой палец {
-            -webkit-внешний вид: нет;
-            ширина: 14px;
-            высота: 14px;
-            фон: #dbbaff;
-            радиус границы: 50%;
-            курсор: указатель;
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #dbbaff;
+            border-radius: 50%;
+            cursor: pointer;
         }
-
-        .плейлист {
-            максимальная высота: 380px;
-            переполнение-y: авто;
-            радиус границы: 18px;
-            фон: rgba(0, 0, 0, 0,3);
-            отступ: 6px 4px;
+        .playlist {
+            max-height: 380px;
+            overflow-y: auto;
+            border-radius: 18px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px 4px;
         }
-
-        .элемент плейлиста {
-            дисплей: гибкий;
-            обосновать содержание: пространство между;
-            выровнять элементы: центр;
-            отступ: 10px 14px;
-            поле: 5px 6px;
-            фон: rgba(20, 15, 30, 0,7);
-            радиус границы: 30px;
-            курсор: указатель;
-            переход: 0,1 с;
-            border-left: 3px сплошной прозрачный;
-            цвет: #cfc1e6;
-            размер шрифта: 0,85rem;
+        .playlist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            margin: 5px 6px;
+            background: rgba(20, 15, 30, 0.7);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.1s;
+            border-left: 3px solid transparent;
+            color: #cfc1e6;
+            font-size: 0.85rem;
         }
-
-        .элемент плейлиста:hover {
-            фон: #2f2442;
-            цвет левой границы: #b77eeb;
+        .playlist-item:hover {
+            background: #2f2442;
+            border-left-color: #b77eeb;
         }
-
         .playlist-item.active {
-            фон: #3e2b58;
-            цвет левой границы: #e2b4ff;
+            background: #3e2b58;
+            border-left-color: #e2b4ff;
             color: white;
         }
-
-        .название песни {
-            пустое пространство: nowrap;
-            переполнение: скрыто;
-            переполнение текста: многоточие;
-            максимальная ширина: 75%;
+        .song-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 75%;
         }
-
-        .продолжительность песни {
-            размер шрифта: 0,7rem;
-            фон: #00000055;
-            отступ: 3px 8px;
-            радиус границы: 20px;
+        .song-duration {
+            font-size: 0.7rem;
+            background: #00000055;
+            padding: 3px 8px;
+            border-radius: 20px;
         }
-
-        .плейлист::-webkit-scrollbar {
-            ширина: 5px;
+        .playlist::-webkit-scrollbar { width: 5px; }
+        .playlist::-webkit-scrollbar-track { background: #1e1728; }
+        .playlist::-webkit-scrollbar-thumb { background: #8a6cb0; border-radius: 10px; }
+        footer {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 0.7rem;
+            color: #6a5385;
         }
-        .плейлист::-webkit-scrollbar-track {
-            фон: #1e1728;
-        }
-        .плейлис::-webkit-scrollbar-thumb {
-            фон: #8a6cb0;
-            радиус границы: 10px;
-        }
+    </style>
+</head>
+<body>
+<div class="gothic-player">
+    <div class="player-header">
+        <h1>🦇 ELLI·GOTHIC·PLAYER</h1>
+        <p>44 tracks · dark stage · projection archive</p>
+    </div>
 
-        нижний колонтитул {
-            выравнивание текста: по центру;
-            верхнее поле: 18px;
-            размѵр шрифта: 0,7рем;
-            цвет: #6a5385;
-        }
-    </стиль>
-</голова>
-<тело>
-<див класс="готический игрок">
-    <див класс="игрок-заголовок">
-        <ч1>🦇 ЭЛЛИ·ГОТИКА·ИГРОК</ч1>
-        <p>44 трека · тёмная сцена · архив проекции</p>
-    </див>
+    <div class="current-track">
+        <div class="track-title" id="currentTrackName">Select a track</div>
+        <div class="track-artist" id="currentTrackArtist">Elli · Sonic Archive</div>
+    </div>
 
-    <див класс="текущий трек">
-        <див класс="название трека" идентификатор="currentTrackName">Выберите трек</див>
-        <див класс="исполнитель трека" идентификатор="currentTrackArtist">Элли · Архив Соника</див>
-    </див>
+    <div class="controls">
+        <button class="ctrl-btn" id="prevBtn">⏮</button>
+        <button class="ctrl-btn play-btn" id="playPauseBtn">▶</button>
+        <button class="ctrl-btn" id="nextBtn">⏭</button>
+    </div>
 
-    <див класс="контролирует">
-        <кнопка класс="ctrl-btn" идентификатор="prevBtn">⏮</кнопка>
-        <кнопка класс="ctrl-btn play-btn" идентификатор="playPauseBtn">▶</кнопка>
-        <кнопка класс="ctrl-btn" идентификатор="следующийБтн">⏭</кнопка>
-    </див>
+    <div class="progress-area">
+        <div class="progress-bar-bg" id="progressBarBg">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="time-info">
+            <span id="currentTime">0:00</span>
+            <span id="totalDuration">0:00</span>
+        </div>
+    </div>
 
-    <див класс="область прогресса">
-        <див класс="прогресс-бар-бг" идентификатор="прогрессБарБг">
-            <див класс="прогресс-заполнение" идентификатор="прогрессЗаполнить"></див>
-        </див>
-        <див класс="информация о времени">
-            <охватывать идентификатор="текущееВремя">0:00</охватывать>
-            <охватывать идентификатор="общая продолжительность">0:00</охватывать>
-        </див>
-    </див>
+    <div class="volume-wrapper">
+        <span>🔊</span>
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.01" value="0.7">
+    </div>
 
-    <див класс="объемная упаковка">
-        <охватывать>🔊</охватывать>
-        <вход тип="диапазон" идентификатор="volumeSlider" класс="ползунок громкости" мин="0" макс="1" шаг="0,01" ценить="0,7">
-    </див>
+    <div class="playlist" id="playlistContainer"></div>
+    <footer>⚙️ Architect · Evi · 44 tracks</footer>
+</div>
 
-    <див класс="плейлист" идентификатор="контейнер плейлиста"></див>
-    <нижний колонтитул>⚙️ Архитектор · Эви · 44 трека</нижний колонтитул>
-</див>
-
-<сценарий>
-    // === ПЛЕЙЛИСТ (твои 44 трека) ===
-    константа треки = [
-        { имя: «Nightwish — Благослови ребенка», худохник: "Ночное желе", источник: "audio/01 - Nightwish - Благослови ребенка.mp3" },
-        { имя: «Лив Кристина при участии. Мишель Тьма - Распад Любви",художник: «Лив Кристина при участии. Мишель Тьма",источник: "audio/1 - 01 - Лив Кристина с участием. Мишель Тьма - Love Decay.mp3" }, 
-        { имя: "КсаѰндрия - ВѾронье сердце", художник: "Ксаандрия", источник: "аудио/02 - Ксандрия - Ravenheart.mp3" },
-        { имя: «Ксандрия — Мечта все еще жива», художник: "Ксандрия", источник: "audio/02 - Ксандрия - Мечта все еще жива.mp3" },
-        { имя: «Лунное заклинание — Великая Тьма», худохник: "Лунное заклинание", источник: "audio/2 - 03 - Moonspell - Великая Тьма.mp3" },
-        { имя: «Братство - Потерянное», художник: "Братство", источник: "audio/2 - 08 - Братство - Lost.mp3" },
-        { имя: «В этот момент — Скарлет», худохник: «В этот момент», источник: "audio/2 - 09 - В этот момент - Scarlet.mp3" },
-        { игра: «Годекс — Скучай по теме», худохник: "Годекс", история: "audio/2 - 14 - Godex - Miss You.mp3" },
-        { игра: «Nightwish — песня песня», песня: "Ночное сообщение", песня: "audio/03 - Nightwish - Песня песня.mp3" },
-        { имя: «Смертельная любовь — вся красота», художник: «Смертельная любовь», источник: "audio/04 - Смертельная любовь - Вся красота.mp3" },
-        { имя: «Театр трагедии — начало и конец», художник: «Театр трагедии», источник: "audio/04 - Театр трагедии - Начало и конец.mp3" },
-        { имя: «Немезия — История с мной», худохник: "Немезия", история: "audio/05 - Nemesea - История с мной.mp3" },
-        { имя: «Сара Нокс — Снова зима», художник: "Сара Нокс", источник: "аудио/05 - Сара Нокс - Снова зима.mp3" },
-        { имя: «Эксилия — За гранью», худохник: "Эксилия", источник: "audio/06 - Exilia - Over the Edge.mp3" },
-        { имя: «Леандра - Колыбельная», художник: "Леандра", источник: "аудио/06 - Леандра - Колыбельная.mp3" },
-        { имя: «Эденбридж — не от мира сего», художник: "Эденбридж", источник: "audio/07 - Эденбридж - Не от мира сего.mp3" },
-        { имя: «Видения Атлантиды — Где дневной свет не светит», художник: «Видения Атлантиды», источник: "audio/07 - Видения Атлантиды - Где дневной свет терпит неудачу.mp3" },
-        { имя: «Тристания - Амнезия», художник: "Тристания", источник: "аудио/08 - Тристания - Амнезия.mp3" },
-        { имя: «Смертельная любовь — Безмятежность», художник: «Смертельная любовь», источник: "audio/09 - Смертельная любовь - Serenity.mp3" },
-        { имя: «Театр трагедии - Венера (вживую)», художник: «Театр трагедии», источник: "audio/09 - Театр трагедии - Венера (Live).mp3" },
-        { имя: "Арвен - Зимние ночи", художник: "Арвен", источник: "аудио/10 - Арвен - Зимние ночи.mp3" },
-        { имя: «Катра — одно желание прочь», художник: "Катра", источник: "audio/10 - Катра - One Wish Away.mp3" },
-        { имя: «Хелалин Флауэрс — Безумие моей девушки», художник: "Цветы Хелалин", источник: "audio/11 - Хелалин Флауэрс - Моя девушка Безумие.mp3" },
-        { имя: «Миднатцол — Еще одно возвращение», художник: "Миднатцол", источник: "audio/11 - Midnattsol - Еще одно возвращение.mp3" },
-        { имя: «Глаза Эдема — Зимняя ночь», художник: «Глаза Эдема», источник: "audio/12 - Глаза Эдема - Зимняя ночь.mp3" },
-        { имя: «Убийство моей милой — Единственной», художник: «Убийство моей милой», источник: "audio/12 - Убийство моей сладкой - The One.mp3" },
-        { имя: «Прекрасный грех — сдайся раз и навсегда», художник: «Прекрасный грех», источник: "audio/13 - Прекрасный грех - Откажись раз и навсегда.mp3" },
-        { имя: «Прекрасный грех — я настоящий», художник: «Прекрасный грех», источник: "audio/13 - Прекрасный грех - Я настоящий.mp3" },
-        { имя: «ЛАБОРАТОРИЯ — Когда небеса становятся грязными», художник: "ЛАБОРАТОРИЯ", источник: "audio/14 - LAB - When Heaven Gets Dirty.mp3" },
-        { имя: «Листья’Глаза - Сумеречное Солнце», художник: «Листья’Глаза», источник: "audio/14 - Листья’ Глаза - Сумеречное Солнце.mp3" },
-        { имя: «Lovelorn Dolls - After Dark (Die Now)», художник: «Куклы, потерявшие любовь», источник: "audio/15 - Lovelorn Dolls - After Dark (Die Now).mp3" },
-        { имя: «Тристания — Современный конец», художник: "Тристания", источник: "audio/15 - Тристания - Современный конец.mp3" },
-        { имя: «Bloodflowerz — Исцеляющие сердца», художник: "Бладфлауэрз", источник: "audio/16 - Bloodflowerz - Healing Hearts.mp3" },
-        { имя: «Строго конфиденциально — Архангел», художник: «Строго конфиденциально», источник: "audio/16 - В строгой конфиденциальности - Archangel.mp3" },
-        { имя: «Голоса Судьбы — Луч Надежды», художник: «Голоса судьбы», источник: "audio/17 - Голоса судьбы - Луч надежды.mp3" },
-        { имя: «Sin7sinS — Изнасилование и захват», художник: "Sin7sinS", источник: "audio/18 - Sin7sinS - Rape & Take.mp3" },
-        { имя: «Песня о любви мертвой дивы», художник: "Неизвестно", источник: "аудио/Deadite Diva Love Song.mp3" },
-        { имя: «Люси Вейн — Пепел под моей кожей», художник: "Люси Вейн", источник: "аудио/Люси Вейн- Ash Beneath My Skin'.m4a" },
-        { имя: «Моя кровавая любовь», художник: "Неизвестно", источник: "аудио/Моя кровавая любовь.mp3" },
-        { имя: «Деревья вечности — Тонущие корабли», художник: «Деревья Вечности», источник: "аудио/Деревья вечности - Тонущие корабли.mp3" },
-        { имя: «Вневременные небеса»,источник: "аудио/01. Вечные небеса.mp3 " },
+<script>
+    // === PLAYLIST (твои 44 трека) ===
+    const tracks = [
+        { name: "Nightwish - Bless the Child", artist: "Nightwish", src: "audio/01 - Nightwish - Bless the Child.mp3" },
+        { name: "Liv Kristine feat. Michelle Darkness - Love Decay", artist: "Liv Kristine feat. Michelle Darkness", src: "audio/1 - 01 - Liv Kristine feat. Michelle Darkness - Love Decay.mp3" },
+        { name: "Xandria - Ravenheart", artist: "Xandria", src: "audio/02 - Xandria - Ravenheart.mp3" },
+        { name: "Xandria - The Dream Is Still Alive", artist: "Xandria", src: "audio/02 - Xandria - The Dream Is Still Alive.mp3" },
+        { name: "Moonspell - The Great Darkness", artist: "Moonspell", src: "audio/2 - 03 - Moonspell - The Great Darkness.mp3" },
+        { name: "Brotherhood - Lost", artist: "Brotherhood", src: "audio/2 - 08 - Brotherhood - Lost.mp3" },
+        { name: "In This Moment - Scarlet", artist: "In This Moment", src: "audio/2 - 09 - In This Moment - Scarlet.mp3" },
+        { name: "Godex - Miss You", artist: "Godex", src: "audio/2 - 14 - Godex - Miss You.mp3" },
+        { name: "Nightwish - Song of Myself", artist: "Nightwish", src: "audio/03 - Nightwish - Song of Myself.mp3" },
+        { name: "Deadly Love - All the Beauty", artist: "Deadly Love", src: "audio/04 - Deadly Love - All the Beauty.mp3" },
+        { name: "Theatre of Tragedy - Begin and End", artist: "Theatre of Tragedy", src: "audio/04 - Theatre of Tragedy - Begin and End.mp3" },
+        { name: "Nemesea - Story with Me", artist: "Nemesea", src: "audio/05 - Nemesea - Story with Me.mp3" },
+        { name: "Sarah Nox - Winter Again", artist: "Sarah Nox", src: "audio/05 - Sarah Nox - Winter Again.mp3" },
+        { name: "Exilia - Over the Edge", artist: "Exilia", src: "audio/06 - Exilia - Over the Edge.mp3" },
+        { name: "Leandra - Lullaby", artist: "Leandra", src: "audio/06 - Leandra - Lullaby.mp3" },
+        { name: "Edenbridge - Not of This World", artist: "Edenbridge", src: "audio/07 - Edenbridge - Not of This World.mp3" },
+        { name: "Visions of Atlantis - Where Daylight Fails", artist: "Visions of Atlantis", src: "audio/07 - Visions of Atlantis - Where Daylight Fails.mp3" },
+        { name: "Tristania - Amnesia", artist: "Tristania", src: "audio/08 - Tristania - Amnesia.mp3" },
+        { name: "Deadly Love - Serenity", artist: "Deadly Love", src: "audio/09 - Deadly Love - Serenity.mp3" },
+        { name: "Theatre of Tragedy - Venus (Live)", artist: "Theatre of Tragedy", src: "audio/09 - Theatre of Tragedy - Venus (Live).mp3" },
+        { name: "Arven - Winter Nights", artist: "Arven", src: "audio/10 - Arven - Winter Nights.mp3" },
+        { name: "Katra - One Wish Away", artist: "Katra", src: "audio/10 - Katra - One Wish Away.mp3" },
+        { name: "Helalyn Flowers - My Girlfriend Madness", artist: "Helalyn Flowers", src: "audio/11 - Helalyn Flowers - My Girlfriend Madness.mp3" },
+        { name: "Midnattsol - Another Return", artist: "Midnattsol", src: "audio/11 - Midnattsol - Another Return.mp3" },
+        { name: "Eyes of Eden - Winter Night", artist: "Eyes of Eden", src: "audio/12 - Eyes of Eden - Winter Night.mp3" },
+        { name: "Murder of My Sweet - The One", artist: "Murder of My Sweet", src: "audio/12 - Murder of My Sweet - The One.mp3" },
+        { name: "Beautiful Sin - Give Up Once for All", artist: "Beautiful Sin", src: "audio/13 - Beautiful Sin - Give Up Once for All.mp3" },
+        { name: "Beautiful Sin - I Am Real", artist: "Beautiful Sin", src: "audio/13 - Beautiful Sin - I Am Real.mp3" },
+        { name: "LAB - When Heaven Gets Dirty", artist: "LAB", src: "audio/14 - LAB - When Heaven Gets Dirty.mp3" },
+        { name: "Leaves' Eyes - Twilight Sun", artist: "Leaves' Eyes", src: "audio/14 - Leaves' Eyes - Twilight Sun.mp3" },
+        { name: "Lovelorn Dolls - After Dark (Die Now)", artist: "Lovelorn Dolls", src: "audio/15 - Lovelorn Dolls - After Dark (Die Now).mp3" },
+        { name: "Tristania - Modern End", artist: "Tristania", src: "audio/15 - Tristania - Modern End.mp3" },
+        { name: "Bloodflowerz - Healing Hearts", artist: "Bloodflowerz", src: "audio/16 - Bloodflowerz - Healing Hearts.mp3" },
+        { name: "Strictly Confidential - Archangel", artist: "Strictly Confidential", src: "audio/16 - Strictly Confidential - Archangel.mp3" },
+        { name: "Voices of Destiny - Ray of Hope", artist: "Voices of Destiny", src: "audio/17 - Voices of Destiny - Ray of Hope.mp3" },
+        { name: "Sin7sinS - Rape & Take", artist: "Sin7sinS", src: "audio/18 - Sin7sinS - Rape & Take.mp3" },
+        { name: "Deadite Diva Love Song", artist: "Unknown", src: "audio/Deadite Diva Love Song.mp3" },
+        { name: "Lucy Wayne - Ash Beneath My Skin", artist: "Lucy Wayne", src: "audio/Lucy Wayne- Ash Beneath My Skin'.m4a" },
+        { name: "My Bloody Love", artist: "Unknown", src: "audio/My Bloody Love.mp3" },
+        { name: "Trees of Eternity - Sinking Ships", artist: "Trees of Eternity", src: "audio/Trees of Eternity - Sinking Ships.mp3" },
+        { name: "Timeless Heavens", artist: "Unknown", src: "audio/01. Timeless Heavens.mp3" },
         { name: "Darkseed - Roads", artist: "Darkseed", src: "audio/Darkseed - Roads.mp3" },
-        { name:},
         { name: "End of Green - Carpathian Gravedancer", artist: "End of Green", src: "audio/End of Green - Carpathian Gravedancer.mp3" },
-        { name: "Indica - Precious Dark", artist: "Indica", src: "audio/Indica - Precious Dark.mp3"},
+        { name: "Indica - Precious Dark", artist: "Indica", src: "audio/Indica - Precious Dark.mp3" },
         { name: "The 69 Eyes - Sister of Charity", artist: "The 69 Eyes", src: "audio/The 69 Eyes - Sister of Charity.mp3" },
-        { name: "Xandria - Fight Me", artist: "Xandria", src: "audio/Xandria - Fight Me.mp3" } ,
-        { name: "Goth' Music",src: "audio/01. Goth' Music.mp3 " },
-        { name: "Nightwish - Nemo", artist: " Nightwish", src: "audio/1 - 01 - Nightwish - Nemo.mp3" },
+        { name: "Xandria - Fight Me", artist: "Xandria", src: "audio/Xandria - Fight Me.mp3" },
+        { name: "Goth' Music", artist: "Unknown", src: "audio/01. Goth' Music.mp3" },
+        { name: "Nightwish - Nemo", artist: "Nightwish", src: "audio/1 - 01 - Nightwish - Nemo.mp3" },
         { name: "Eisbrecher - Eisbrecher", artist: "Eisbrecher", src: "audio/1 - 02 - Eisbrecher - Eisbrecher.mp3" },
-        { name: "Crematory - Reign of Fear", artist: " Crematory", src: "audio/1 - 04 - Crematory - Reign of Fear.mp3"}, 
-        { name: "Eisbrecher - Schwarze Witwe",artist:"Eisbrecher", src: "audio/1 - 17 - Eisbrecher - Schwarze Witwe.mp3"},
-        { name: "Lacrimosa - Lichtgestalt", artist:"Lacrimosa", src: "audio/1 - 18 - Lacrimosa - Lichtgestalt.mp3"}, 
+        { name: "Crematory - Reign of Fear", artist: "Crematory", src: "audio/1 - 04 - Crematory - Reign of Fear.mp3" },
+        { name: "Eisbrecher - Schwarze Witwe", artist: "Eisbrecher", src: "audio/1 - 17 - Eisbrecher - Schwarze Witwe.mp3" },
+        { name: "Lacrimosa - Lichtgestalt", artist: "Lacrimosa", src: "audio/1 - 18 - Lacrimosa - Lichtgestalt.mp3" }
     ];
 
-    // === ПЛЕЕР ===
+    // === PLAYER ===
     const audio = new Audio();
     let currentIndex = 0;
     let isPlaying = false;
@@ -362,12 +320,12 @@ html
         audio.src = track.src;
         currentTrackNameSpan.textContent = track.name;
         currentTrackArtistSpan.textContent = track.artist;
-        
+
         document.querySelectorAll('.playlist-item').forEach((item, i) => {
             if (i === currentIndex) item.classList.add('active');
             else item.classList.remove('active');
         });
-        
+
         if (isPlaying) audio.play().catch(e => console.log(e));
     }
 
